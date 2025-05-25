@@ -19,10 +19,7 @@ public class VueloService {
     }
 
     public List<Vuelo> listarVuelosDisponibles() {
-        return vueloRepository.findAll()
-                .stream()
-                .filter(v -> v.getPlazasDisponibles() > 0)
-                .toList();
+        return vueloRepository.findByPlazasDisponiblesGreaterThan(0);
     }
 
     public Vuelo buscarPorId(Long id) {
