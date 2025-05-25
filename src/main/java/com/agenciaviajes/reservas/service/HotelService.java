@@ -18,8 +18,12 @@ public class HotelService {
         return hotelRepository.findAll();
     }
 
-    public Optional<Hotel> buscarPorId(Long id) {
-        return hotelRepository.findById(id);
+    public List<Hotel> listarHotelesDisponibles() {
+        return hotelRepository.findByDisponibilidadTrue();
+    }
+
+    public Hotel buscarPorId(Long id) {
+        return hotelRepository.findById(id).orElse(null);
     }
 
     public Hotel guardarHotel(Hotel hotel) {

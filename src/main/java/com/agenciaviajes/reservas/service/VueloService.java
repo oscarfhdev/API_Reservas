@@ -25,8 +25,8 @@ public class VueloService {
                 .toList();
     }
 
-    public Optional<Vuelo> buscarPorId(Long id) {
-        return vueloRepository.findById(id);
+    public Vuelo buscarPorId(Long id) {
+        return vueloRepository.findById(id).orElse(null);
     }
 
     public Vuelo guardarVuelo(Vuelo vuelo) {

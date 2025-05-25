@@ -31,8 +31,8 @@ public class ReservaService {
         return reservaRepository.findAll();
     }
 
-    public Optional<Reserva> buscarPorId(Long id) {
-        return reservaRepository.findById(id);
+    public Reserva buscarPorId(Long id) {
+        return reservaRepository.findById(id).orElse(null);
     }
 
     public Reserva crearReserva(Reserva reserva) {
