@@ -1,4 +1,4 @@
-package com.agenciaviajes.reservas.models;
+package com.agenciaviajes.reservas.model;
 
 import jakarta.persistence.*;
 
