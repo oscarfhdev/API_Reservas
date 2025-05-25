@@ -16,11 +16,11 @@ public class Reserva {
     @Column(name = "dni", nullable = false, length = 20)
     private String dni;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "vuelo_asociado")
     private Vuelo vueloAsociado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "hotel_asociado")
     private Hotel hotelAsociado;
 
