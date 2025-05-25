@@ -18,28 +18,6 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
-
-    @PostConstruct
-    public void init() {
-        // Solo si no hay hoteles para no duplicar
-        if (hotelService.listarHoteles().isEmpty()) {
-            Hotel h1 = new Hotel();
-            h1.setNombre("Hotel Plaza");
-            h1.setCategoria("4 estrellas");
-            h1.setPrecio(new BigDecimal("100.00"));
-            h1.setDisponibilidad(true);
-
-            Hotel h2 = new Hotel();
-            h2.setNombre("Hotel Costa");
-            h2.setCategoria("3 estrellas");
-            h2.setPrecio(new BigDecimal("80.00"));
-            h2.setDisponibilidad(false);
-
-            hotelService.guardarHotel(h1);
-            hotelService.guardarHotel(h2);
-        }
-    }
-
     // GET /hoteles, nos muestra los hoteles
     @GetMapping
     public List<Hotel> listarTodos() {
