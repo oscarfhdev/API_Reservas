@@ -1,4 +1,7 @@
 package com.agenciaviajes.reservas.repository;
 
-public interface HotelRepository{
+import com.agenciaviajes.reservas.model.Hotel;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HotelRepository extends JpaRepository<Hotel, Long> {
 }
