@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReservaService {
@@ -27,6 +26,12 @@ public class ReservaService {
     @Autowired
     private HotelRepository hotelRepository;
 
+    @Autowired
+    private VueloService vueloService;
+
+    @Autowired
+    private HotelService hotelService;
+
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();
     }
@@ -35,30 +40,90 @@ public class ReservaService {
         return reservaRepository.findById(id).orElse(null);
     }
 
-    public Reserva crearReserva(Reserva reserva) {
-        // Verificar vuelo
-        Vuelo vuelo = vueloRepository.findById(reserva.getVueloAsociado().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vuelo no encontrado"));
+    // Guardamos reserva
+    public Reserva guardarReserva(Reserva reserva) {
+        Vuelo vuelo = reserva.getVueloAsociado();
+        Hotel hotel = reserva.getHotelAsociado();
 
-        if (vuelo.getPlazasDisponibles() <= 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay plazas disponibles en el vuelo");
+        // Validacion
+        if (vuelo == null || vuelo.getPlazasDisponibles() <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El vuelo no tiene plazas disponibles.");
         }
 
-        // Verificar hotel
-        Hotel hotel = hotelRepository.findById(reserva.getHotelAsociado().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel no encontrado"));
+        //Validación
+        if (hotel == null || !hotel.getDisponibilidad()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El vuelo no tiene plazas disponibles.");
+        }
 
-        // Asociar objetos completos a la reserva
-        reserva.setVueloAsociado(vuelo);
-        reserva.setHotelAsociado(hotel);
-
-        // Si todo se hace bien, se resta 1
+        // Lógica de negocio: reducir disponibilidad
         vuelo.setPlazasDisponibles(vuelo.getPlazasDisponibles() - 1);
-        vueloRepository.save(vuelo);
+        vueloService.guardarVuelo(vuelo);
 
-        // Guardar reserva
+        hotel.setDisponibilidad(false);
+        hotelService.guardarHotel(hotel);
+
         return reservaRepository.save(reserva);
     }
 
+    // Aquí lo creamos todo solo con los datos
+    public Reserva crearReservaDesdeIds(String dni, String usuario, Long vueloId, Long hotelId) {
+        Vuelo vuelo = vueloRepository.findById(vueloId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vuelo no encontrado"));
+
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel no encontrado"));
+
+        // Validaciones
+        if (vuelo.getPlazasDisponibles() <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El vuelo no tiene plazas disponibles");
+
+        }
+
+        if (!hotel.getDisponibilidad()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El hotel no está disponible");
+        }
+
+        // Crear y guardar reserva
+        Reserva reserva = new Reserva();
+        reserva.setDni(dni);
+        reserva.setUsuario(usuario);
+        reserva.setVueloAsociado(vuelo);
+        reserva.setHotelAsociado(hotel);
+
+        // Actualizar disponibilidad
+        vuelo.setPlazasDisponibles(vuelo.getPlazasDisponibles() - 1);
+        hotel.setDisponibilidad(false);
+
+        vueloService.guardarVuelo(vuelo);
+        hotelService.guardarHotel(hotel);
+
+        return reservaRepository.save(reserva);
+    }
+
+    // Eliminamos reservas desde ID
     public void eliminarReserva(Long id) {
         reservaRepository.deleteById(id);
+    }
+
+
+    // Actualizamos reservas desde id
+    public Reserva actualizarReservaDesdeIds(Long id, String dni, String usuario, Long vueloId, Long hotelId) {
+        Reserva reservaExistente = reservaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrado"));
+
+        Vuelo vuelo = vueloRepository.findById(vueloId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vuelo no encontrado"));
+        if (vuelo.getPlazasDisponibles() <= 0) {
+            throw new IllegalArgumentException("Vuelo no tiene plazas disponibles");
+        }
+
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel no encontrado"));
+        if (!hotel.getDisponibilidad()) {
+            throw new IllegalArgumentException("Hotel no disponible");
+        }
+
+        // Actualizar campos
+        reservaExistente.setDni(dni);
+        reservaExistente.setUsuario(usuario);
+        reservaExistente.setVueloAsociado(vuelo);
+        reservaExistente.setHotelAsociado(hotel);
+
+        return reservaRepository.save(reservaExistente);
     }
 }
