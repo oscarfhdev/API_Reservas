@@ -106,16 +106,27 @@ public class ReservaService {
 
     // Actualizamos reservas desde id
     public Reserva actualizarReservaDesdeIds(Long id, String dni, String usuario, Long vueloId, Long hotelId) {
-        Reserva reservaExistente = reservaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrado"));
+        Reserva reservaExistente = reservaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva no encontrada"));
 
-        Vuelo vuelo = vueloRepository.findById(vueloId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vuelo no encontrado"));
-        if (vuelo.getPlazasDisponibles() <= 0) {
-            throw new IllegalArgumentException("Vuelo no tiene plazas disponibles");
+        Vuelo vuelo = vueloRepository.findById(vueloId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vuelo no encontrado"));
+
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel no encontrado"));
+
+        // Validar plazas solo si el vuelo es diferente al actual
+        if (!vuelo.getId().equals(reservaExistente.getVueloAsociado().getId())) {
+            if (vuelo.getPlazasDisponibles() <= 0) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El vuelo no está disponible");
+            }
         }
 
-        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel no encontrado"));
-        if (!hotel.getDisponibilidad()) {
-            throw new IllegalArgumentException("Hotel no disponible");
+        // Validar disponibilidad solo si el hotel es diferente al actual
+        if (!hotel.getId().equals(reservaExistente.getHotelAsociado().getId())) {
+            if (!hotel.getDisponibilidad()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El hotel no está disponible");
+            }
         }
 
         // Actualizar campos
@@ -127,3 +138,4 @@ public class ReservaService {
         return reservaRepository.save(reservaExistente);
     }
 }
+
