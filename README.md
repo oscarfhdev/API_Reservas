@@ -6,25 +6,6 @@ Incluye una base de datos inicial con datos precargados para facilitar las prueb
 
 ---
 
-## 🗂 Estructura del proyecto
-
-```
-📁 reservas
-├── creacion_db.sql               --> Script SQL para crear la base de datos
-├── src/main/java                 --> Código fuente
-│   └── com/agenciaviajes/reservas
-│       ├── controller            --> Controladores REST
-│       ├── init                 --> Inicialización de datos
-│       ├── model                --> Entidades JPA
-│       ├── repository           --> Interfaces de acceso a datos
-│       ├── service              --> Lógica de negocio
-│       └── ReservasApplication  --> Clase principal
-└── src/main/resources
-    └── application.properties   --> Configuración de la aplicación
-```
-
----
-
 ## ⚙️ Pasos para ejecutar el proyecto
 
 1. 📂 **Crear la base de datos**
@@ -60,6 +41,25 @@ Incluye una base de datos inicial con datos precargados para facilitar las prueb
 - MySQL
 - Postman
 - Maven
+
+---
+
+## 🗂 Estructura del proyecto
+
+```
+📁 reservas
+├── creacion_db.sql               --> Script SQL para crear la base de datos
+├── src/main/java                 --> Código fuente
+│   └── com/agenciaviajes/reservas
+│       ├── controller            --> Controladores REST
+│       ├── init                 --> Inicialización de datos
+│       ├── model                --> Entidades JPA
+│       ├── repository           --> Interfaces de acceso a datos
+│       ├── service              --> Lógica de negocio
+│       └── ReservasApplication  --> Clase principal
+└── src/main/resources
+    └── application.properties   --> Configuración de la aplicación
+```
 
 ---
 
