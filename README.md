@@ -128,7 +128,8 @@ reservas
 2. Completa el formulario de reserva con los datos necesarios.  
 3. Envía el formulario para crear la reserva (se comunicará con el backend vía fetch).  
 
-> Aquí puedes incluir capturas de pantalla del formulario y del proceso para que el usuario lo vea fácilmente.
+![Formulario de Creacion de Reserva](./crear_reserva.png)
+
 
 ---
 
@@ -144,7 +145,7 @@ reservas
 
 ## 🧠 Autor
 
-Desarrollado por **Oscar Fernández** – Proyecto educativo para 1ºDAM 👨‍💻  
+Desarrollado por **Óscar Fernández** – Proyecto educativo para 1ºDAM 👨‍💻  
 🔗 [GitHub](https://github.com/oscarfhdev)
 
 ---
