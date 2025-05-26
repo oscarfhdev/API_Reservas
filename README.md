@@ -1,106 +1,115 @@
 # ✈️ Agencia de Viajes – Sistema de Reservas
 
-Este es un proyecto de backend desarrollado en **Spring Boot**, que permite gestionar una **agencia de viajes** con funcionalidades **CRUD completas** para hoteles, vuelos y reservas.
+Este proyecto backend desarrollado en **Spring Boot** gestiona una **agencia de viajes** con funcionalidades **CRUD completas** para hoteles, vuelos y reservas, y ahora incluye una **interfaz web interactiva** para facilitar su uso.
 
-Incluye una base de datos inicial con datos precargados para facilitar las pruebas desde herramientas como **Postman**.
+---
+
+## ⚠️ IMPORTANTE: Cómo probar la interfaz web correctamente
+
+Para que la aplicación web funcione sin problemas (especialmente las llamadas `fetch` desde JavaScript al backend), **debes abrir los archivos `.html` desde IntelliJ IDEA usando la opción "Open in Browser"** (preferiblemente con **Google Chrome**).  
+
+Abrir los archivos directamente desde el explorador sin este paso puede causar problemas con CORS y las peticiones no funcionarán.  
+
+> En IntelliJ:  
+> 1. Navega a `src/main/resources/interface/index.html`  
+> 2. Haz clic derecho y selecciona **Open in Browser > Chrome** (o el navegador que prefieras)  
+> 3. La página cargará correctamente y podrá comunicarse con el backend.  
+
+![Instrucciones](./instrucciones.png)
 
 ---
 
 ## ⚙️ Pasos para ejecutar el proyecto
 
-1. 📂 **Crear la base de datos**
-   Ejecuta el script [`creacion_db.sql`](./creacion_db.sql) en tu gestor de bases de datos (MySQL, MariaDB, etc.).  
-   > Este script crea una base de datos llamada `agencia`.
+1. 📂 **Crear la base de datos**  
+   Ejecuta el script [`creacion_db.sql`](./creacion_db.sql) en tu gestor de base de datos (MySQL, MariaDB, etc.).  
+   > Se crea la base de datos llamada `agencia`.
 
-2. 🔧 **Configurar credenciales**
-   Abre el proyecto en **IntelliJ IDEA** y modifica el archivo `application.properties` con tus credenciales de base de datos:
+2. 🔧 **Configurar credenciales**  
+   En `src/main/resources/application.properties` introduce tus credenciales:
 
    ```properties
    spring.datasource.username=TU_USUARIO
    spring.datasource.password=TU_CONTRASEÑA
    ```
 
-3. 🚀 **Ejecutar la aplicación**
-   Lanza la clase principal `ReservasApplication.java` y el backend quedará disponible en:
+3. 🚀 **Ejecutar la aplicación**  
+   Ejecuta la clase principal `ReservasApplication.java`. El backend estará disponible en:
 
    ```
    http://localhost:8080/
    ```
 
-4. 🧪 **Probar con Postman**
-   Puedes realizar peticiones a las rutas disponibles.  
-   👉 Los datos se insertan automáticamente al arrancar la aplicación.
+4. 🖥️ **Abrir la interfaz web y probar**  
+   Desde IntelliJ, abre el archivo `src/main/resources/interface/index.html` usando **Open in Browser** con Chrome.  
+
+5. 🧪 **Probar API con Postman (opcional)**  
+   Puedes probar los endpoints REST para hoteles, vuelos y reservas. Los datos iniciales se cargan automáticamente al iniciar.
 
 ---
 
 ## 📌 Tecnologías utilizadas
 
-- Java 21
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Postman
-- Maven
+- Java 21  
+- Spring Boot  
+- Spring Data JPA  
+- MySQL  
+- Maven  
+- Frontend: HTML, CSS, JavaScript (Fetch API)  
 
 ---
 
-## 🗂 Estructura del proyecto
+## 🗂 Estructura destacada del proyecto
 
+```plaintext
+reservas
+├── creacion_db.sql               # Script para crear base de datos
+├── src
+│   ├── main
+│   │   ├── java/com/agenciaviajes/reservas
+│   │   │   ├── config/WebConfig.java           # Configuración Spring MVC
+│   │   │   ├── controller/                      # Controladores REST
+│   │   │   ├── init/DataInitializer.java       # Datos iniciales precargados
+│   │   │   ├── model/                           # Entidades JPA
+│   │   │   ├── repository/                      # Repositorios JPA
+│   │   │   ├── service/                         # Servicios de negocio
+│   │   │   └── ReservasApplication.java        # Clase principal
+│   │   └── resources
+│   │       ├── application.properties           # Configuración app
+│   │       └── interface                         # Interfaz web estática
+│   │           ├── css/style.css
+│   │           ├── js/                           # JavaScript para frontend
+│   │           ├── index.html                     # Página principal
+│   │           ├── hoteles.html
+│   │           ├── vuelos.html
+│   │           └── reservas.html
+└── README.md
 ```
-📁 reservas
-├── creacion_db.sql               --> Script SQL para crear la base de datos
-├── src/main/java                 --> Código fuente
-│   └── com/agenciaviajes/reservas
-│       ├── controller            --> Controladores REST
-│       ├── init                 --> Inicialización de datos
-│       ├── model                --> Entidades JPA
-│       ├── repository           --> Interfaces de acceso a datos
-│       ├── service              --> Lógica de negocio
-│       └── ReservasApplication  --> Clase principal
-└── src/main/resources
-    └── application.properties   --> Configuración de la aplicación
-```
 
 ---
 
-## 🧭 Endpoints disponibles
+## 🧭 Endpoints disponibles (REST API)
 
-### 🏨 Hoteles
-
-| Método | Endpoint        | Descripción                   |
-|--------|------------------|-------------------------------|
-| GET    | `/hoteles`       | Listar todos los hoteles     |
-| POST   | `/hoteles`       | Crear un nuevo hotel         |
-| PUT    | `/hoteles/{id}`  | Actualizar un hotel por ID   |
-| DELETE | `/hoteles/{id}`  | Eliminar un hotel por ID     |
-
----
-
-### ✈️ Vuelos
-
-| Método | Endpoint        | Descripción                  |
-|--------|------------------|------------------------------|
-| GET    | `/vuelos`        | Listar todos los vuelos      |
-| POST   | `/vuelos`        | Crear un nuevo vuelo         |
-| PUT    | `/vuelos/{id}`   | Actualizar un vuelo por ID   |
-| DELETE | `/vuelos/{id}`   | Eliminar un vuelo por ID     |
+| Método | Endpoint          | Descripción                   |
+|--------|-------------------|------------------------------|
+| GET    | `/hoteles`        | Listar hoteles               |
+| POST   | `/hoteles`        | Crear hotel                  |
+| PUT    | `/hoteles/{id}`   | Actualizar hotel             |
+| DELETE | `/hoteles/{id}`   | Eliminar hotel               |
+| GET    | `/vuelos`         | Listar vuelos                |
+| POST   | `/vuelos`         | Crear vuelo                  |
+| PUT    | `/vuelos/{id}`    | Actualizar vuelo             |
+| DELETE | `/vuelos/{id}`    | Eliminar vuelo               |
+| GET    | `/reservas`       | Listar reservas              |
+| POST   | `/reservas`       | Crear reserva                |
+| PUT    | `/reservas/{id}`  | Actualizar reserva           |
+| DELETE | `/reservas/{id}`  | Eliminar reserva             |
 
 ---
 
-### 📄 Reservas
+## 📝 Ejemplos de uso
 
-| Método | Endpoint          | Descripción                        |
-|--------|--------------------|------------------------------------|
-| GET    | `/reservas`        | Listar todas las reservas          |
-| POST   | `/reservas`        | Crear una nueva reserva            |
-| PUT    | `/reservas/{id}`   | Actualizar una reserva por ID      |
-| DELETE | `/reservas/{id}`   | Eliminar una reserva por ID        |
-
----
-
-### 📝 Crear una reserva
-
-Ejemplo de JSON a enviar en Postman para crear una reserva:
+### Crear reserva con Postman (API REST)
 
 ```json
 {
@@ -111,18 +120,25 @@ Ejemplo de JSON a enviar en Postman para crear una reserva:
 }
 ```
 
-⚠️ El hotel debe estar disponible (`true`) y el vuelo debe tener plazas disponibles (`> 0`).  
-En caso contrario, se devolverá un error con el motivo del fallo.
+---
+
+### Crear reserva desde la interfaz web
+
+1. Abre la página `reservas.html` desde IntelliJ con "Open in Browser".  
+2. Completa el formulario de reserva con los datos necesarios.  
+3. Envía el formulario para crear la reserva (se comunicará con el backend vía fetch).  
+
+> Aquí puedes incluir capturas de pantalla del formulario y del proceso para que el usuario lo vea fácilmente.
 
 ---
 
 ## 🧩 Lógica interna
 
-- Una reserva se vincula con **un hotel** y **un vuelo**.
-- Al crear una reserva:
-  - Se reduce el número de plazas disponibles del vuelo.
-  - Se marca el hotel como **no disponible**.
-- Si el hotel no está disponible o el vuelo no tiene plazas, se lanza una excepción controlada (`400 Bad Request`) con un mensaje descriptivo.
+- Una reserva enlaza un hotel y un vuelo.  
+- Al crear reserva:  
+  - Disminuye plazas disponibles del vuelo.  
+  - Cambia disponibilidad del hotel a `false`.  
+- Si el hotel no está disponible o no hay plazas, la API devuelve error `400 Bad Request` con explicación clara.
 
 ---
 
@@ -135,4 +151,4 @@ Desarrollado por **Oscar Fernández** – Proyecto educativo para 1ºDAM 👨‍
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia MIT – ver archivo [`LICENSE`](./LICENSE) para más detalles.
+Este proyecto está bajo licencia MIT – consulta el archivo [`LICENSE`](./LICENSE) para más detalles.
