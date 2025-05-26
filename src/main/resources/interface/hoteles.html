@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Hoteles</title>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <h3><a href="./index.html" class="back-link">🏠 Página principal</a></h3>
+
+            <h2>🏨 Lista de Hoteles</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio (€)</th>
+                    <th>Disponible</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-hoteles"></tbody>
+            </table>
+
+            <section class="form-section">
+                <h3>Añadir Hotel</h3>
+                <form id="form-hotel">
+                    <input type="text" placeholder="Nombre" id="nombre" required />
+                    <input type="text" placeholder="Categoría" id="categoria" required />
+                    <input type="number" placeholder="Precio" id="precio" required min="0" />
+                    <button type="submit">Guardar</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Actualizar Hotel</h3>
+                <form id="form-actualizar-hotel">
+                    <input type="number" placeholder="ID del hotel" id="id-actualizar" required min="1" />
+                    <input type="text" placeholder="Nuevo nombre" id="nombre-actualizar" required />
+                    <input type="text" placeholder="Nueva categoría" id="categoria-actualizar" required />
+                    <input type="number" placeholder="Nuevo precio" id="precio-actualizar" required min="0" />
+                    <select id="disponibilidad-actualizar">
+                        <option value="true">Disponible</option>
+                        <option value="false">No disponible</option>
+                    </select>
+                    <button type="submit">Actualizar</button>
+                </form>
+            </section>
+        </div>
+
+        <script src="./js/main.js"></script>
+        <script src="./js/hoteles.js"></script>
+    </body>
+</html>

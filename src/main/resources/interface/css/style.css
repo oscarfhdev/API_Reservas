@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh; /* ocupa toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* centra horizontal */
+    background: #e6f0ff; /* azul muy suave de fondo */
+    color: #004080;
+}
+
+.container {
+    max-width: 900px;
+    margin: 4rem auto; /* margen arriba y abajo para separar verticalmente */
+    padding: 2rem 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 64, 128, 0.2);
+    color: #003366;
+    text-align: center; /* centra el texto dentro del container */
+}
+
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #003366;
+    text-align: center;
+}
+
+nav ul {
+    display: flex;
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    background: #0073e6;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    padding: 0; /* eliminar padding para que el a ocupe todo */
+}
+
+nav ul li:hover {
+    background: #005bb5;
+}
+
+nav ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 1rem 2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.25rem;
+    box-sizing: border-box;
+}
+
+nav ul li a:focus,
+nav ul li a:active {
+    outline: 2px solid #004080;
+}
+
+/* Tablas */
+table, tr, td, th {
+    border: 1px solid #004080;
+    border-collapse: collapse;
+    padding: 1vw;
+    text-align: center;
+}
+
+th {
+    background: #99c2ff;
+}
+
+table {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto 2rem;
+    border-collapse: collapse;
+}
+
+/* Más separación entre botones dentro de las tablas */
+table button {
+    margin: 0 5px;
+}
+
+/* Inputs, selects, buttons */
+input, select, button {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+form input,
+form select {
+    flex: 1 1 150px;
+    min-width: 150px;
+}
+
+form button {
+    flex: 0 0 auto;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #005bb5;
+}

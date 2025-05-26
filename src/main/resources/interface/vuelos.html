@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Vuelos</title>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <h3><a href="./index.html">🏠 Página principal</a></h3>
+            <br>
+            <h2>✈️ Lista de Vuelos</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Compañía</th>
+                    <th>Fecha</th>
+                    <th>Precio (€)</th>
+                    <th>Plazas disponibles</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-vuelos"></tbody>
+            </table>
+
+            <br><br>
+
+            <h3>Añadir Vuelo</h3>
+            <form id="form-vuelo">
+                <input type="text" placeholder="Compañía" id="compania" required />
+                <input type="date" id="fecha" required />
+                <input type="number" step="0.01" placeholder="Precio" id="precio" required />
+                <input type="number" placeholder="Plazas disponibles" id="plazas" required />
+                <button type="submit">Guardar</button>
+            </form>
+
+            <br><br>
+
+            <h3>Actualizar Vuelo</h3>
+            <form id="form-actualizar-vuelo">
+                <input type="number" placeholder="ID del vuelo" id="id-actualizar" required />
+                <input type="text" placeholder="Nueva compañía" id="compania-actualizar" required />
+                <input type="date" id="fecha-actualizar" required />
+                <input type="number" step="0.01" placeholder="Nuevo precio" id="precio-actualizar" required />
+                <input type="number" placeholder="Nuevas plazas disponibles" id="plazas-actualizar" required />
+                <button type="submit">Actualizar</button>
+            </form>
+        </div>
+
+        <script src="./js/main.js"></script>
+        <script src="./js/vuelos.js"></script>
+    </body>
+</html>

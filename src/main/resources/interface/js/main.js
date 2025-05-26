@@ -1,0 +1,1 @@
+const API = "http://localhost:8080"; // Constante a la que accede el resto

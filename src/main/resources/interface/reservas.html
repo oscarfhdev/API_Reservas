@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Reservas</title>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h3><a href="./index.html">🏠 Página principal</a></h3>
+            <br>
+            <h2>📝 Lista de Reservas</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DNI</th>
+                    <th>Usuario</th>
+                    <th>ID Vuelo</th>
+                    <th>ID Hotel</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-reservas"></tbody>
+            </table>
+
+            <br><br>
+
+            <h3>Añadir Reserva</h3>
+            <form id="form-reserva">
+                <input type="text" placeholder="DNI" id="dni" required />
+                <input type="text" placeholder="Usuario" id="usuario" required />
+                <input type="number" placeholder="ID Vuelo" id="vueloId" required />
+                <input type="number" placeholder="ID Hotel" id="hotelId" required />
+                <button type="submit">Guardar</button>
+            </form>
+
+            <br><br>
+
+            <h3>Actualizar Reserva</h3>
+            <form id="form-actualizar-reserva">
+                <input type="number" placeholder="ID de la reserva" id="id-actualizar" required />
+                <input type="text" placeholder="Nuevo DNI" id="dni-actualizar" required />
+                <input type="text" placeholder="Nuevo Usuario" id="usuario-actualizar" required />
+                <input type="number" placeholder="Nuevo ID Vuelo" id="vueloId-actualizar" required />
+                <input type="number" placeholder="Nuevo ID Hotel" id="hotelId-actualizar" required />
+                <button type="submit">Actualizar</button>
+            </form>
+        </div>
+
+        <script src="./js/main.js"></script>
+        <script src="./js/reservas.js"></script>
+    </body>
+</html>
