@@ -126,7 +126,7 @@ Una reserva enlaza un **hotel** y un **vuelo**:
 ## 🧠 Autor
 
 Desarrollado por **Óscar Fernández** – Proyecto educativo para **1ºDAM** 👨‍💻  
-🔗 [GitHub](https://github.com/)
+🔗 [GitHub](https://github.com/oscarfhdev)
 
 ## 📄 Licencia
 
